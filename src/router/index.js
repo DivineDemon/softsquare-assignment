@@ -1,6 +1,9 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+
 import HomeView from "../views/HomeView.vue";
+import AddTask from "../components/AddTask.vue";
+import UpdateTask from "../components/UpdateTask.vue";
 
 Vue.use(VueRouter);
 
@@ -18,6 +21,16 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
+  },
+  {
+    path: "/add",
+    name: "Add Task",
+    component: AddTask,
+  },
+  {
+    path: "/update",
+    name: "Update Task",
+    component: UpdateTask,
   },
 ];
 

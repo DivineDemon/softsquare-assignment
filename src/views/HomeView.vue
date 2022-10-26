@@ -1,18 +1,26 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <h1>Tasks</h1>
+    <div class="tasks">
+      <div v-for="task in getTasks" :key="task.id" class="task">
+        {{ task.title }}
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "HomeView",
-  components: {
-    HelloWorld,
+  methods: {
+    ...mapActions(["fetchTasks"]),
+    // Add Other Methods if Required
+  },
+  computed: mapGetters(["allTasks"]),
+  created() {
+    this.fetchTasks();
   },
 };
 </script>

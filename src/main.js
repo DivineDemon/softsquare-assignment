@@ -5,6 +5,10 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
+// BSV CDN Links
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-vue/dist/bootstrap-vue.css";
+
 // BSV Plugin Initialized
 Vue.use(BootstrapVue);
 
