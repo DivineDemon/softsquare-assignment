@@ -24,6 +24,7 @@ const store = new Vuex.Store({
       state.tasks[editIndex] = data;
     },
     deleteTask(state, id) {
+      console.log("in delete");
       let deleteIndex = state.tasks.findIndex((task) => task.id === id);
       state.tasks.splice(deleteIndex, 1);
     },

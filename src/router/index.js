@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import EditTask from "../components/EditTask.vue";
+import AddTask from "../components/AddTask.vue";
 
 Vue.use(VueRouter);
 
@@ -11,11 +12,11 @@ const routes = [
     name: "home",
     component: HomeView,
   },
-  // {
-  //   path: "/add",
-  //   name: "add",
-  //   component: AddTask,
-  // },
+  {
+    path: "/add",
+    name: "add",
+    component: AddTask,
+  },
   {
     path: "/edit/:id",
     name: "edit",
