@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapActions } from "vuex";
 import TaskList from "@/components/Tasks/TaskList.vue";
 
 export default {
@@ -14,10 +14,10 @@ export default {
     TaskList,
   },
   methods: {
-    ...mapMutations(["setTasks"]),
+    ...mapActions(["fetchAllTasks"]),
   },
-  mounted() {
-    this.setTasks(JSON.parse(localStorage.tasks));
+  async created() {
+    await this.fetchAllTasks();
   },
 };
 </script>

@@ -11,16 +11,17 @@ const store = new Vuex.Store({
     getAllTasks(state) {
       return state.tasks;
     },
-    getTask(state, id) {
-      return state.tasks[id];
-    },
   },
   mutations: {
     setTasks(state, tasks) {
       state.tasks = tasks;
     },
     addTask(state, task) {
-      Object.assign(state, JSON.parse(...localStorage.getItem("store"), task));
+      state.tasks.push(task);
+    },
+    editTask(state, data) {
+      let editIndex = state.tasks.findIndex((task) => task.id === data.id);
+      state.tasks[editIndex] = data;
     },
     deleteTask(state, id) {
       let deleteIndex = state.tasks.findIndex((task) => task.id === id);
@@ -31,7 +32,19 @@ const store = new Vuex.Store({
       target.reminder = !target.reminder;
     },
   },
-  actions: {},
+  actions: {
+    async fetchAllTasks({ state, commit }) {
+      const response = await fetch("http://localhost:5000/tasks");
+      const data = await response.json();
+      commit("setTasks", data);
+      console.log(state.tasks);
+    },
+    async fetchTask(context, id) {
+      const response = await fetch(`http://localhost:5000/tasks/${id}`);
+      const data = await response.json();
+      return data;
+    },
+  },
 });
 
 export default store;
