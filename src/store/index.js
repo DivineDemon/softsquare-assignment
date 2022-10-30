@@ -33,11 +33,10 @@ const store = new Vuex.Store({
     },
   },
   actions: {
-    async fetchAllTasks({ state, commit }) {
+    async fetchAllTasks({ commit }) {
       const response = await fetch("http://localhost:5000/tasks");
       const data = await response.json();
       commit("setTasks", data);
-      console.log(state.tasks);
     },
     async fetchTask(context, id) {
       const response = await fetch(`http://localhost:5000/tasks/${id}`);
