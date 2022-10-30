@@ -4,7 +4,7 @@
       <span class="mr-3 flex-1">{{ task.title }}</span>
       <div class="flex flex-row space-x-3 relative">
         <!-- Reminder Toggle -->
-        <button @click="toggleReminder">
+        <button @click="toggleReminderAction">
           <svg
             v-if="task.reminder"
             xmlns="http://www.w3.org/2000/svg"
@@ -76,7 +76,7 @@
           </router-link>
           <button
             class="flex flex-row space-x-3 items-center"
-            @click="deleteTask"
+            @click="deleted()"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -102,7 +102,7 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   name: "TaskItem",
@@ -115,11 +115,16 @@ export default {
     task: Object,
   },
   methods: {
-    ...mapMutations(["deleteTask"]),
+    ...mapActions(["deleteTask", "toggleReminder"]),
     toggleActionList() {
       this.actionList = !this.actionList;
     },
-    toggleReminder() {},
+    toggleReminderAction() {
+      this.toggleReminder(this.task.id);
+    },
+    deleted() {
+      this.deleteTask(this.task.id);
+    },
   },
 };
 </script>
