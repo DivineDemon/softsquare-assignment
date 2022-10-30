@@ -1,9 +1,9 @@
 <template>
   <nav
-    class="w-full h-16 shadow-md flex flex-row space-x-6 justify-start items-center p-2"
+    class="w-full h-16 shadow-md flex flex-row space-x-6 justify-start items-center px-5 py-3"
   >
     <!-- Logo -->
-    <div class="flex">
+    <div class="flex-1">
       <img src="../assets/img/SoftSquare.png" alt="logo" class="h-8" />
     </div>
     <!-- Nav Items -->

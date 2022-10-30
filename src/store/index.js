@@ -16,13 +16,12 @@ const store = new Vuex.Store({
     },
   },
   mutations: {
-    initializeState(state) {
-      if (localStorage.getItem("store")) {
-        state.tasks = JSON.parse(localStorage.getItem("store"));
-      }
+    setTasks(state, tasks) {
+      state.tasks = tasks;
+      console.log(state.tasks);
     },
     addTask(state, task) {
-      state.items.push(task);
+      Object.assign(state, JSON.parse(...localStorage.getItem("store"), task));
     },
     deleteTask(state, id) {
       let deleteIndex = state.checks.findIndex((task) => task.id === id);
@@ -30,10 +29,6 @@ const store = new Vuex.Store({
     },
   },
   actions: {},
-});
-
-store.subscribe((mutation, state) => {
-  localStorage.setItem("store", JSON.stringify(state));
 });
 
 export default store;
