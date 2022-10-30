@@ -1,7 +1,7 @@
 <template>
   <div class="m-2 p-2 flex flex-col space-y-2 bg-white rounded-md">
     <h1 class="text-xl font-bold capitalize flex flex-row items-center">
-      <span class="mr-3">{{ task.title }}</span>
+      <span class="mr-3 flex-1">{{ task.title }}</span>
       <!-- Reminder True -->
       <svg
         v-if="task.reminder"
