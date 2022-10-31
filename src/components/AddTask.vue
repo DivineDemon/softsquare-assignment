@@ -78,7 +78,8 @@ export default {
   },
   methods: {
     ...mapActions(["addTask"]),
-    addToTaskList() {
+    addToTaskList(e) {
+      e.preventDefault();
       this.addTask(this.formData);
     },
   },

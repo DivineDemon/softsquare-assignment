@@ -25,38 +25,8 @@ const store = new Vuex.Store({
     },
   },
   actions: {
-    async deleteTask(context, id) {
-      if (confirm("Are You Sure?")) {
-        const response = await fetch(`http://localhost:5000/tasks/${id}`, {
-          method: "DELETE",
-        });
-        // Not Changing the State Directly, But Assigning it the Changed Value
-        response.status === 200
-          ? (this.tasks = this.tasks.filter((task) => task.id !== id))
-          : alert("Error Deleting Task: ", response.status);
-      }
-    },
-    async toggleReminder(context, id) {
-      console.log(id);
-      const taskToToggle = await fetch(`http://localhost:5000/tasks/${id}`);
-      const updatedTask = {
-        ...taskToToggle,
-        reminder: !taskToToggle.reminder,
-      };
-      const response = await fetch(`http://localhost:5000/tasks/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(updatedTask),
-      });
-      const data = await response.json();
-      this.tasks = this.tasks.map((task) =>
-        task.id === id ? { ...task, reminder: data.reminder } : task
-      );
-    },
+    // Create
     async addTask({ commit }, task) {
-      console.log(task);
       const response = await fetch("http://localhost:5000/tasks", {
         method: "POST",
         headers: {
@@ -67,6 +37,7 @@ const store = new Vuex.Store({
       const data = await response.json();
       commit("newTask", data);
     },
+    // Retrieve
     async fetchAllTasks({ commit }) {
       const response = await fetch("http://localhost:5000/tasks");
       const data = await response.json();
@@ -77,6 +48,60 @@ const store = new Vuex.Store({
       const response = await fetch(`http://localhost:5000/tasks/${id}`);
       const data = await response.json();
       return data;
+    },
+    // Update
+    async editTask({ state, commit }, updatedTask) {
+      // Send Updated Data
+      const request = await fetch(
+        `http://localhost:5000/tasks/${updatedTask.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify(updatedTask),
+        }
+      );
+      const data = await request.json();
+      let finalState = state.tasks.map((task) =>
+        task.id === updatedTask.id ? { data } : task
+      );
+      commit("setTasks", finalState);
+    },
+    async toggleReminder({ state, commit }, id) {
+      // Get Data to Update
+      const response = await fetch(`http://localhost:5000/tasks/${id}`);
+      const taskToToggle = await response.json();
+      const updatedTask = {
+        ...taskToToggle,
+        reminder: !taskToToggle.reminder,
+      };
+
+      // Send Updated Data
+      const request = await fetch(`http://localhost:5000/tasks/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(updatedTask),
+      });
+      const data = await request.json();
+      let finalState = state.tasks.map((task) =>
+        task.id === id ? { ...task, reminder: data.reminder } : task
+      );
+      commit("setTasks", finalState);
+    },
+    // Delete
+    async deleteTask(context, id) {
+      if (confirm("Are You Sure?")) {
+        const response = await fetch(`http://localhost:5000/tasks/${id}`, {
+          method: "DELETE",
+        });
+        // Not Changing the State Directly, But Assigning it the Changed Value
+        response.status === 200
+          ? (this.tasks = this.tasks.filter((task) => task.id !== id))
+          : alert("Error Deleting Task: ", response.status);
+      }
     },
   },
 });

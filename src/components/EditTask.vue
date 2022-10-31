@@ -1,7 +1,11 @@
 <template>
   <div class="m-5 p-5">
-    <form class="flex flex-col space-y-3 items-center">
+    <form
+      class="flex flex-col space-y-3 items-center"
+      @submit="editCurrentTask"
+    >
       <h1 class="text-4xl font-bold mb-5">Edit Task</h1>
+      <!-- Title -->
       <div class="flex flex-col">
         <label for="title" class="text-xs font-bold text-gray-600 mb-1"
           >Title</label
@@ -10,9 +14,11 @@
           class="border border-[#f33d3f] rounded-md p-2 text-[#f33d3f]"
           type="text"
           name="title"
+          v-model="newTitle"
           :placeholder="this.editableFormData.title"
         />
       </div>
+      <!-- Description -->
       <div class="flex flex-col">
         <label for="description" class="text-xs font-bold text-gray-600 mb-1"
           >Description</label
@@ -21,6 +27,7 @@
           class="border border-[#f33d3f] rounded-md p-2 text-[#f33d3f]"
           type="text"
           name="description"
+          v-model="newDescription"
           :placeholder="this.editableFormData.description"
         />
       </div>
@@ -41,11 +48,23 @@ export default {
       editableFormData: {
         title: "",
         description: "",
+        reminder: false,
       },
+      newTitle: "",
+      newDescription: "",
     };
   },
   methods: {
-    ...mapActions(["fetchTask"]),
+    ...mapActions(["fetchTask", "editTask"]),
+    editCurrentTask(e) {
+      e.preventDefault();
+      this.editTask({
+        id: this.$route.params.id,
+        title: this.newTitle,
+        description: this.newDescription,
+        reminder: this.editableFormData.reminder,
+      });
+    },
   },
   async mounted() {
     let data = await this.fetchTask(this.$route.params.id);
