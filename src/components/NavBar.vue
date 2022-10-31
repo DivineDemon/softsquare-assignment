@@ -10,7 +10,7 @@
     <div class="flex">
       <router-link to="/">
         <span
-          class="font-bold bg-[#f33d3f] text-white p-2 items-center rounded-md"
+          class="font-bold bg-[#f33d3f] text-white p-2 items-center rounded-md cursor-pointer"
           >Home</span
         >
       </router-link>

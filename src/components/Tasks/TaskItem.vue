@@ -4,7 +4,7 @@
       <span class="mr-3 flex-1">{{ task.title }}</span>
       <div class="flex flex-row space-x-3 relative">
         <!-- Reminder Toggle -->
-        <button @click="toggleReminderAction">
+        <button @click="toggleReminderAction" class="cursor-pointer">
           <svg
             v-if="task.reminder"
             xmlns="http://www.w3.org/2000/svg"
@@ -60,7 +60,7 @@
         >
           <router-link
             :to="`/edit/${task.id}`"
-            class="flex flex-row space-x-3 items-center"
+            class="flex flex-row space-x-3 items-center cursor-pointer"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -75,7 +75,7 @@
             <span>Edit</span>
           </router-link>
           <button
-            class="flex flex-row space-x-3 items-center"
+            class="flex flex-row space-x-3 items-center cursor-pointer"
             @click="deleted()"
           >
             <svg

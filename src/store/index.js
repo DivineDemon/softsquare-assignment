@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import Vue from "vue";
 import Vuex from "vuex";
 
@@ -92,15 +94,18 @@ const store = new Vuex.Store({
       commit("setTasks", finalState);
     },
     // Delete
-    async deleteTask(context, id) {
+    async deleteTask({ state, commit }, id) {
       if (confirm("Are You Sure?")) {
         const response = await fetch(`http://localhost:5000/tasks/${id}`, {
           method: "DELETE",
         });
         // Not Changing the State Directly, But Assigning it the Changed Value
         response.status === 200
-          ? (this.tasks = this.tasks.filter((task) => task.id !== id))
-          : alert("Error Deleting Task: ", response.status);
+          ? commit(
+            "setTasks",
+            state.tasks.filter((task) => task.id !== id)
+          )
+          : alert("Error Deleting Data: ", response.status);
       }
     },
   },

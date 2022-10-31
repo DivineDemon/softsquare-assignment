@@ -31,7 +31,9 @@
           :placeholder="this.editableFormData.description"
         />
       </div>
-      <button class="bg-[#f33d3f] text-white font-bold mt-3 p-2 rounded-md">
+      <button
+        class="bg-[#f33d3f] text-white font-bold mt-3 p-2 rounded-md cursor-pointer"
+      >
         Submit
       </button>
     </form>
